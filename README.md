@@ -2,8 +2,6 @@
 
 Aplicación web hecha con **React + Vite** para simular préstamos, interés simple, interés compuesto y proyecciones de ahorro en pesos dominicanos (RD$). Está diseñada **Mobile First**: primero para celular y después adaptada a tableta y escritorio.
 
-> Autor: **_[Tu nombre]_** · Universidad Adventista Dominicana (UNAD) · Prof. Victor Campusano
-
 | Celular | Selector de modalidad | Detalle (celular) | Validación |
 |---|---|---|---|
 | ![Inicio en celular](docs/movil-inicio.png) | ![Menú Calcular](docs/movil-menu.png) | ![Detalle en celular](docs/movil-detalle.png) | ![Validación](docs/movil-validacion.png) |

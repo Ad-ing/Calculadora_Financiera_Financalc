@@ -1,0 +1,784 @@
+/* ─────────────────────────────────────────────────────────────
+   FinanCalc · estilos Mobile First
+   1) Tokens  2) Base  3) Componentes  4) Media queries (tableta/escritorio)
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --green: #0b7a40;
+  --green-dark: #08602f;
+  --green-soft: #e5efe8;
+  --green-faded: #80b898;
+  --orange: #e8973a;
+  --bg: #f3f5f2;
+  --surface: #ffffff;
+  --ink: #13201a;
+  --muted: #56625b;
+  --line: #dbe1dc;
+  --warn: #ffe3a3;
+
+  --radius-xl: 28px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --pill: 999px;
+  --gutter: 20px;
+
+  font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg);
+  font-variant-numeric: tabular-nums;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid #f2b84b;
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+p,
+dl,
+dd {
+  margin: 0;
+}
+
+/* ── Contenedor ────────────────────────────────────────────── */
+.app {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px var(--gutter) 28px;
+}
+
+/* ── Encabezado ────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.brand__logo {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: var(--green);
+  color: #fff;
+}
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.brand__text strong {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.brand__text small {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--green);
+  background: transparent;
+  color: var(--green);
+  transition: background 0.15s;
+}
+
+.avatar:hover,
+.avatar[aria-expanded='true'] {
+  background: var(--green-soft);
+}
+
+/* ── Historial (menú del usuario) ──────────────────────────── */
+.history {
+  position: relative;
+}
+
+.history__panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  z-index: 10;
+  width: min(300px, calc(100vw - 2 * var(--gutter)));
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 40px rgba(19, 32, 26, 0.14);
+}
+
+.history__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.history__head h2 {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.text-btn {
+  border: 0;
+  background: none;
+  color: var(--green);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 4px 6px;
+  border-radius: 8px;
+}
+
+.history__empty {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.history__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.history__list button {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 10px;
+  width: 100%;
+  padding: 10px 8px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  text-align: left;
+}
+
+.history__list li + li button {
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+}
+
+.history__list button:hover {
+  background: var(--green-soft);
+  border-radius: 12px;
+}
+
+.history__mode {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.history__value {
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--green);
+}
+
+.history__date {
+  grid-column: 1 / -1;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ── Selector "Calcular:" ──────────────────────────────────── */
+.mode-picker {
+  position: relative;
+  z-index: 5;
+}
+
+.mode-picker__button {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 3vw, 14px);
+  width: 100%;
+  min-height: 52px;
+  padding: 0 clamp(16px, 5vw, 20px);
+  border: 0;
+  border-radius: var(--pill);
+  background: var(--green);
+  color: #fff;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.mode-picker__button:hover,
+.mode-picker__button[aria-expanded='true'] {
+  background: var(--green-dark);
+}
+
+.mode-picker__label {
+  font-size: clamp(0.88rem, 4vw, 0.95rem);
+  white-space: nowrap;
+}
+
+.mode-picker__value {
+  flex: 1;
+  font-size: clamp(0.98rem, 4.6vw, 1.08rem);
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mode-picker__icon {
+  flex: none;
+  transition: rotate 0.2s;
+}
+
+.mode-picker__icon.is-open {
+  rotate: 180deg;
+}
+
+/* Menú desplegable propio */
+.mode-picker__list {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: 0 18px 40px rgba(19, 32, 26, 0.16);
+  animation: menu-in 0.14s ease-out;
+}
+
+.mode-picker__list:focus {
+  outline: none;
+}
+
+.mode-picker__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 14px;
+  border-radius: 14px;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mode-picker__option.is-active {
+  background: var(--green-soft);
+}
+
+.mode-picker__option.is-selected {
+  color: var(--green);
+  font-weight: 800;
+}
+
+.mode-picker__check {
+  font-weight: 800;
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    translate: 0 -4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mode-picker__list {
+    animation: none;
+  }
+}
+
+/* ── Formulario (panel verde) ──────────────────────────────── */
+.calc-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 12px;
+  padding: 24px 20px 20px;
+  border-radius: var(--radius-xl);
+  background: var(--green);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.field input,
+.select select {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  background: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.field input::placeholder {
+  color: #8a948e;
+  font-weight: 500;
+}
+
+.field input:focus-visible,
+.select select:focus-visible {
+  outline: none;
+  border-color: #f2b84b;
+}
+
+.field--invalid input {
+  border-color: var(--orange);
+}
+
+.field__error {
+  color: var(--warn);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.select {
+  position: relative;
+}
+
+.select select {
+  appearance: none;
+  padding-right: 48px;
+  cursor: pointer;
+}
+
+.select__icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  translate: 0 -50%;
+  pointer-events: none;
+  color: var(--ink);
+}
+
+/* ── Botones ───────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 54px;
+  border: 0;
+  border-radius: var(--pill);
+  font-size: 1.22rem;
+  font-weight: 800;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.985);
+}
+
+.btn--calc {
+  margin-top: 4px;
+  background: #fff;
+  color: var(--green);
+}
+
+.btn--calc:hover {
+  background: #f1f7f3;
+}
+
+.btn--details {
+  margin-top: 12px;
+  background: var(--green);
+  color: #fff;
+}
+
+.btn--details:hover:not(:disabled) {
+  background: var(--green-dark);
+}
+
+.btn--details:disabled {
+  background: var(--green-faded);
+  cursor: not-allowed;
+}
+
+/* ── Tarjeta resumen ───────────────────────────────────────── */
+.summary {
+  margin-top: 12px;
+  padding: 18px 20px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.summary__label {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.summary__label span {
+  color: var(--ink);
+}
+
+.summary__value {
+  margin: 6px 0 8px;
+  font-size: clamp(1.6rem, 8vw, 1.9rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.summary__rows {
+  display: grid;
+  gap: 4px;
+}
+
+.summary__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.92rem;
+}
+
+.summary__row dt {
+  color: var(--muted);
+}
+
+.summary__row dd {
+  font-weight: 700;
+  text-align: right;
+}
+
+.disclaimer {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ── Detalle de la simulación ──────────────────────────────── */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 2px 0 18px -6px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--green);
+  font-weight: 700;
+  font-size: 0.98rem;
+}
+
+.back-link:hover {
+  background: var(--green-soft);
+}
+
+.details__title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.details__subtitle {
+  margin-top: 6px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.details__empty {
+  margin-top: 16px;
+  padding: 28px 22px;
+  border: 1.5px dashed var(--line);
+  border-radius: var(--radius-lg);
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.tile {
+  padding: 13px 14px;
+  border-radius: 18px;
+  background: var(--green-soft);
+  min-width: 0;
+}
+
+.tile dt {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.tile dd {
+  margin-top: 4px;
+  font-size: clamp(0.92rem, 4.4vw, 1.08rem);
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.tile--highlight dd {
+  color: var(--green);
+}
+
+.card {
+  margin-top: 14px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.card__title {
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.card__title--small {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.composition {
+  padding: 18px 20px;
+}
+
+.composition__bar {
+  display: flex;
+  height: 14px;
+  margin: 14px 0 12px;
+  border-radius: var(--pill);
+  overflow: hidden;
+  background: var(--green-soft);
+}
+
+.composition__seg--0 {
+  background: var(--green);
+}
+
+.composition__seg--1 {
+  background: var(--orange);
+}
+
+.composition__legend {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+}
+
+.composition__legend li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.composition__legend .sep {
+  color: var(--muted);
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+}
+
+.dot--0 {
+  background: var(--green);
+}
+
+.dot--1 {
+  background: var(--orange);
+}
+
+/* ── Tabla ─────────────────────────────────────────────────── */
+.schedule {
+  overflow: hidden;
+}
+
+.schedule .card__title {
+  padding: 18px 20px 14px;
+}
+
+.schedule__scroll {
+  max-height: 440px;
+  overflow: auto;
+  border-top: 1px solid var(--line);
+}
+
+.schedule table {
+  width: 100%;
+  min-width: 540px;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+.schedule th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--green-soft);
+  font-weight: 700;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.schedule th,
+.schedule td {
+  padding: 11px 16px;
+}
+
+.schedule td {
+  text-align: right;
+  white-space: nowrap;
+  border-bottom: 1px solid #edf1ee;
+}
+
+.schedule th:first-child,
+.schedule td:first-child {
+  text-align: left;
+  padding-left: 20px;
+}
+
+.schedule tbody tr:nth-child(even) {
+  background: #f8faf8;
+}
+
+.schedule td.strong {
+  font-weight: 700;
+}
+
+/* ── Tableta ───────────────────────────────────────────────── */
+@media (min-width: 640px) {
+  .app {
+    max-width: 560px;
+    padding-top: 32px;
+  }
+
+  .tiles {
+    gap: 12px;
+  }
+}
+
+/* ── Escritorio: formulario a la izquierda, detalle a la derecha ── */
+@media (min-width: 1024px) {
+  .app {
+    max-width: 1240px;
+    padding: 36px 40px 48px;
+  }
+
+  .header {
+    margin-bottom: 22px;
+  }
+
+  .brand__logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(360px, 400px) minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+  }
+
+  .calculator {
+    position: sticky;
+    top: 24px;
+  }
+
+  .details__title {
+    font-size: 1.85rem;
+  }
+
+  .tiles {
+    margin-top: 22px;
+  }
+
+  .tile {
+    padding: 16px 18px;
+  }
+
+  .tile dd {
+    font-size: 1.15rem;
+  }
+
+  .schedule__scroll {
+    max-height: 560px;
+  }
+
+  .schedule table {
+    font-size: 0.9rem;
+  }
+}

@@ -115,13 +115,6 @@ Usa `useEffect` para el título de la página, para escuchar el botón «atrás�
 | Compuesto tasa 0 | 1,000 · 2 años · 0% | RD$ 1,000 | ✔ |
 | Ahorro | 10,000 + 3,000/mes · 3 años · 6% | RD$ 129,975.12 | ✔ |
 | Validación | Capital −100 / campo vacío / 700 meses | Muestra error | ✔ |
-
-## Preguntas de reflexión
-
-- **¿Por qué `result` empieza en `null`?** Porque antes de calcular no hay resultado; así la interfaz sabe que debe mostrar `RD$ 0.00` y guiones y deshabilitar «Detalles».
-- **¿Prop vs. estado?** El estado pertenece al componente y puede cambiar (`useState`); las props son datos que el padre envía al hijo y el hijo solo las lee.
-- **¿Por qué `event.preventDefault()`?** Un `<form>` recarga la página al enviarse; eso borraría el estado de React.
-- **¿Qué pasa si se modifica el estado directamente?** React no detecta el cambio y no vuelve a renderizar; por eso se crea un objeto nuevo con `{ ...prev, campo: valor }`.
 - **¿Por qué `finance.js` no importa React?** Son cálculos puros: se pueden probar con Node y reutilizar en cualquier otra interfaz.
 
 ---
